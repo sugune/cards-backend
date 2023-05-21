@@ -4,23 +4,26 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-// modules
+// imports
 const connectDB = require('./db/connect');
 const errorHandler = require('./middlewares/error-handler');
 const notFound = require('./middlewares/not-found');
 const cors = require('cors');
+const authenticate = require('./middlewares/authentication');
 
 // security
 app.use(cors())
 
 // routers
 const authRouter = require('./routers/auth');
+const deckRouter = require('./routers/deck')
 
 // middleware
 app.use(express.json())
 
 // routes 
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/deck', authenticate, deckRouter);
 
 app.use(errorHandler);
 app.use(notFound);

@@ -6,6 +6,7 @@ const {
 } = require('../errors');
 
 const register = async (req, res) => {
+  console.log(req.headers)
   const user = await User.create({...req.body});
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({username: req.body.username, token});
