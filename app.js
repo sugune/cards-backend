@@ -16,7 +16,8 @@ app.use(cors())
 
 // routers
 const authRouter = require('./routers/auth');
-const deckRouter = require('./routers/deck')
+const deckRouter = require('./routers/deck');
+const cardRouter = require('./routers/card');
 
 // middleware
 app.use(express.json())
@@ -24,6 +25,7 @@ app.use(express.json())
 // routes 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/deck', authenticate, deckRouter);
+app.use('/api/v1/card', authenticate, cardRouter);
 
 app.use(errorHandler);
 app.use(notFound);

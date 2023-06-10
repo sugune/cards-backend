@@ -1,6 +1,6 @@
 const Deck = require('../models/Deck');
 const {StatusCodes} = require('http-status-codes')
-const {NotFoundError} = require('../errors');
+const {NotFoundError, BadRequestError} = require('../errors');
 
 const getAllDeck = async (req, res) => {
   const { sort } = req.query;
@@ -16,7 +16,6 @@ const getAllDeck = async (req, res) => {
   }
   
   const deck = await result;
-  console.log(deck)
   
   res.status(StatusCodes.OK).json({count: deck.length, deck})
 }
@@ -40,6 +39,12 @@ const getDeck = async (req, res) => {
 
 const updateDeck = async (req, res) => {
   const {user:{userId}, params:{id: deckId}, body} = req;
+  
+  const count = await Deck.countDocuments({deckname: body.deckname, createdBy: userId});
+  
+  if (count > 0) {
+    throw new BadRequestError('deckname already in use')
+  }
   
   const deck = await Deck.findOneAndUpdate({_id: deckId, createdBy: userId}, {...body}, {
     runValidators: true,

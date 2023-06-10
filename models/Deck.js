@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const deckSchema = new mongoose.Schema({
   deckname: {
     type: String,
-    maxlength: [12, 'deckname must be less than 13 characters'],
+    // maxlength: [12, 'deckname must be less than 13 characters'],
     required: [true, 'Please provide a deckname'],
     validate: {
       validator: uniquenessValidator,
@@ -18,7 +18,7 @@ const deckSchema = new mongoose.Schema({
   description: {
     type: String,
     default: '...',
-    maxlength: [25, 'description must be less than 26 characters']
+    // maxlength: [25, 'description must be less than 26 characters']
   }
 }, {timestamps: true});
 
