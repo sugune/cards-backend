@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-// imports
+// importss
 const connectDB = require('./db/connect');
 const errorHandler = require('./middlewares/error-handler');
 const notFound = require('./middlewares/not-found');
